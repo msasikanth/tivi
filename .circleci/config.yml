@@ -58,7 +58,7 @@ clean_secrets: &clean_secrets
 checkout_submodules: &checkout_submodules
   run:
     name: Checkout submodules
-    command: git submodule update --init --recursive
+    command: git submodule update --depth 1 --init --recursive
 
 jobs:
   build_debug:
