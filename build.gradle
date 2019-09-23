@@ -31,6 +31,15 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
 
+        def androidXPrebuilts = rootProject.file("androidx-prebuilts-external")
+        if (androidXPrebuilts.exists() && androidXPrebuilts.isDirectory()) {
+            maven {
+                url uri(androidXPrebuilts.absolutePath)
+            }
+        } else {
+            throw new IllegalThreadStateException("androidx-prebuilts-external directory does not exist.")
+        }
+
         jcenter()
     }
 
@@ -62,6 +71,21 @@ allprojects {
         mavenCentral()
         jcenter()
         maven { url 'https://jitpack.io' }
+
+        def androidXPrebuilts = rootProject.file("androidx-prebuilts-external")
+        if (androidXPrebuilts.exists() && androidXPrebuilts.isDirectory()) {
+            maven {
+                url uri(androidXPrebuilts.absolutePath)
+            }
+        } else {
+            throw new IllegalThreadStateException("androidx-prebuilts-external directory does not exist.")
+        }
+
+        // AndroidX snapshot repository
+        maven {
+            url 'https://ci.android.com/builds/submitted/5892698/androidx_snapshot/latest/ui/repository/'
+        }
+
         mavenLocal()
     }
 }

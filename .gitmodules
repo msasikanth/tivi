@@ -1,0 +1,4 @@
+[submodule "androidx-prebuilts-external"]
+	path = androidx-prebuilts-external
+	url = https://android.googlesource.com/platform/prebuilts/androidx/external
+	branch = androidx-master-dev
