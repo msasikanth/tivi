@@ -17,7 +17,6 @@
 package app.tivi.episodedetails
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,33 +25,28 @@ import app.tivi.DaggerMvRxFragment
 import app.tivi.common.epoxy.SwipeAwayCallbacks
 import app.tivi.episodedetails.databinding.FragmentEpisodeDetailsBinding
 import app.tivi.extensions.resolveThemeColor
-import app.tivi.showdetails.ShowDetailsNavigator
 import com.airbnb.epoxy.EpoxyTouchHelper
 import com.airbnb.mvrx.MvRx
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
-import kotlinx.android.parcel.Parcelize
 import javax.inject.Inject
 
-class EpisodeDetailsFragment : DaggerMvRxFragment() {
+class EpisodeDetailsFragment : DaggerMvRxFragment(), EpisodeDetailsViewModel.FactoryProvider {
     companion object {
         @JvmStatic
         fun create(id: Long): EpisodeDetailsFragment {
             return EpisodeDetailsFragment().apply {
-                arguments = bundleOf(MvRx.KEY_ARG to Arguments(id))
+                arguments = bundleOf(MvRx.KEY_ARG to EpisodeDetailsArguments(id))
             }
         }
     }
 
-    @Parcelize
-    data class Arguments(val episodeId: Long) : Parcelable
-
     private val viewModel: EpisodeDetailsViewModel by fragmentViewModel()
     @Inject lateinit var episodeDetailsViewModelFactory: EpisodeDetailsViewModel.Factory
 
-    @Inject lateinit var controller: EpisodeDetailsEpoxyController
-    @Inject lateinit var showDetailsNavigator: ShowDetailsNavigator
+    override fun provide(): EpisodeDetailsViewModel.Factory = episodeDetailsViewModelFactory
 
+    @Inject lateinit var controller: EpisodeDetailsEpoxyController
     @Inject lateinit var textCreator: EpisodeDetailsTextCreator
 
     private lateinit var binding: FragmentEpisodeDetailsBinding

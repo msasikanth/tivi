@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ data class EpisodeDetailsViewState(
     val watches: List<EpisodeWatchEntry> = emptyList(),
     val action: Action = Action.WATCH
 ) : MvRxState {
-    constructor(args: EpisodeDetailsFragment.Arguments) : this(args.episodeId)
+    constructor(args: EpisodeDetailsArguments): this(args.episodeId)
 
     enum class Action {
         WATCH, UNWATCH

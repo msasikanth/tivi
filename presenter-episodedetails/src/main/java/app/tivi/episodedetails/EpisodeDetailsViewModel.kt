@@ -92,10 +92,17 @@ class EpisodeDetailsViewModel @AssistedInject constructor(
         fun create(initialState: EpisodeDetailsViewState): EpisodeDetailsViewModel
     }
 
+    interface FactoryProvider {
+        fun provide(): Factory
+    }
+
     companion object : MvRxViewModelFactory<EpisodeDetailsViewModel, EpisodeDetailsViewState> {
-        override fun create(viewModelContext: ViewModelContext, state: EpisodeDetailsViewState): EpisodeDetailsViewModel? {
-            val fragment: EpisodeDetailsFragment = (viewModelContext as FragmentViewModelContext).fragment()
-            return fragment.episodeDetailsViewModelFactory.create(state)
+        override fun create(
+            viewModelContext: ViewModelContext,
+            state: EpisodeDetailsViewState
+        ): EpisodeDetailsViewModel? {
+            val fragment = (viewModelContext as FragmentViewModelContext).fragment
+            return (fragment as? FactoryProvider)?.provide()?.create(state)
         }
     }
 }

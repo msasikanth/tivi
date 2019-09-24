@@ -16,13 +16,8 @@
 
 package app.tivi.episodedetails
 
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-@Module
-abstract class EpisodeDetailsFragmentBuilder {
-    @ContributesAndroidInjector(modules = [
-        EpisodeDetailsPresenterAssistedModule::class
-    ])
-    abstract fun episodeDetailsFragment(): EpisodeDetailsFragment
-}
+@Parcelize
+data class EpisodeDetailsArguments(val episodeId: Long) : Parcelable

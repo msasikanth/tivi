@@ -36,7 +36,7 @@ class EpisodeDetailsEpoxyController @Inject constructor(
             val episode = viewState.episode
 
             val badges = ArrayList<DetailsBadgeBindingModel_>()
-            episode.traktRating?.also { rating ->
+            episode?.traktRating?.also { rating ->
                 badges += DetailsBadgeBindingModel_().apply {
                     val ratingOutOfOneHundred = (rating * 10).roundToInt()
                     id("rating")
@@ -46,7 +46,7 @@ class EpisodeDetailsEpoxyController @Inject constructor(
                             R.string.rating_content_description_format, ratingOutOfOneHundred))
                 }
             }
-            episode.firstAired?.also { firstAired ->
+            episode?.firstAired?.also { firstAired ->
                 badges += DetailsBadgeBindingModel_().apply {
                     id("aired")
                     label(dateFormatter.formatShortRelativeTime(firstAired))
